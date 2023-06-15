@@ -11,7 +11,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-//RtpTransfer ...
+// RtpTransfer ...
 type RtpTransfer struct {
 	datasrc      string
 	protocol     int // tcp or udp
@@ -40,7 +40,7 @@ func NewRRtpTransfer(src string, pro int) *RtpTransfer {
 	}
 }
 
-//Service ...
+// Service ...
 func (rtp *RtpTransfer) Service(srcip, dstip string, srcport, dstport int) error {
 
 	if nil == rtp.timerProcess {
@@ -77,7 +77,7 @@ func (rtp *RtpTransfer) Service(srcip, dstip string, srcport, dstport int) error
 	return nil
 }
 
-//Exit ...
+// Exit ...
 func (rtp *RtpTransfer) Exit() {
 
 	if nil != rtp.timerProcess {
@@ -112,20 +112,20 @@ func (rtp *RtpTransfer) Send2data(data []byte, key bool, pts uint64) {
 		index += pesload
 		lens -= pesload
 		if lens > 0 {
-			rtp.fragmentation(pes, pts, 0)
+			rtp.Fragmentation(pes, pts, 0)
 		} else {
 			// the last slice
-			rtp.fragmentation(pes, pts, 1)
+			rtp.Fragmentation(pes, pts, 1)
 
 		}
 
 	}
 }
 
-func (rtp *RtpTransfer) fragmentation(data []byte, pts uint64, last int) {
+func (rtp *RtpTransfer) Fragmentation(data []byte, pts uint64, last int) {
 	datalen := len(data)
 	if datalen+RTPHeaderLength <= RtpLoadLength {
-		payload := rtp.encRtpHeader(data[:], 1, pts)
+		payload := rtp.EncRtpHeader(data[:], 1, pts)
 		rtp.payload <- payload
 	} else {
 		marker := 0
@@ -136,14 +136,14 @@ func (rtp *RtpTransfer) fragmentation(data []byte, pts uint64, last int) {
 				marker = 1
 				sendlen = datalen
 			}
-			payload := rtp.encRtpHeader(data[index:index+sendlen], marker&last, pts)
+			payload := rtp.EncRtpHeader(data[index:index+sendlen], marker&last, pts)
 			rtp.payload <- payload
 			datalen -= sendlen
 			index += sendlen
 		}
 	}
 }
-func (rtp *RtpTransfer) encRtpHeader(data []byte, marker int, curpts uint64) []byte {
+func (rtp *RtpTransfer) EncRtpHeader(data []byte, marker int, curpts uint64) []byte {
 
 	if rtp.protocol == LocalCache {
 		return data
