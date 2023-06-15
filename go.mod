@@ -1,4 +1,4 @@
-module github.com/MeloQi/streams
+module github.com/syusuke/ps-rtp-streams
 
 go 1.14
 
