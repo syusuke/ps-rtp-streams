@@ -1,7 +1,7 @@
 package main
 
 import (
-	"streams/packet"
+	"github.com/syusuke/ps-rtp-streams/packet"
 
 	"github.com/nareix/joy4/format"
 

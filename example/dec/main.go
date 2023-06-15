@@ -1,7 +1,7 @@
 package main
 
 import (
-	"streams/packet"
+	"github.com/syusuke/ps-rtp-streams/packet"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -34,7 +34,7 @@ func main() {
 		0x3c, 0x80, 0x00, 0x00, 0x01, 0xe0, 0x00, 0x0e, 0x8c, 0x00, 0x02, 0xff, 0xfc, 0x00, 0x00, 0x00,
 		0x01, 0x06, 0xe5, 0x01, 0x67, 0x80}
 
-	if parsed, err := rdp.Read(data); err != nil {
+	if parsed, err := rdp.ReadPsFrame(data); err != nil {
 		log.Errorf("parse ps packet error(%v)", err)
 		return
 	} else {

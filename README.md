@@ -1,5 +1,12 @@
 # streams
 
+- https://blog.csdn.net/ww506772362/article/details/118990859
+- https://blog.csdn.net/chen495810242/article/details/39207305?spm=a2c6h.12873639.article-detail.4.1ea135095bTgew
+- https://www.cnblogs.com/dong1/p/11051708.html
+- https://www.cnblogs.com/dong1/p/10149980.html
+- https://blog.51cto.com/u_12701820/3090669
+- https://blog.51cto.com/u_12701820/3090670
+
 轻便的gb28181协议中的rtp+ps格式视频流的封装和解析
 
 ## packet
